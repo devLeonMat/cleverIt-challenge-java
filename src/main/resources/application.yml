@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: app-bff-ecommerce
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    diskspace:
+      enabled: false
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+      accounts-client:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: HEADERS
+
+client:
+  currency:
+    api: https://api.fastforex.io
+    key: "8ec64ac619-0831749fa2-r45aq2"
+
