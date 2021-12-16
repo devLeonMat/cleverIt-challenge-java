@@ -1,6 +1,5 @@
 package com.rleon.challenge.clever.beersApi.application.controller;
 
-
 import com.rleon.challenge.clever.beersApi.application.dto.request.BeerRequestDto;
 import com.rleon.challenge.clever.beersApi.application.dto.response.BeerResponseDto;
 import com.rleon.challenge.clever.beersApi.application.facade.BeerFacade;
@@ -29,7 +28,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<BeerResponseDto> createBeers(@Valid @RequestBody BeerRequestDto beerRequest) {
+    public ResponseEntity<Void> createBeers(@Valid @RequestBody BeerRequestDto beerRequest) {
         log.info("[BeerController:createBeers]");
         beerFacade.createBeer(beerRequest);
         return ResponseEntity.created(URI.create("/beers")).build();
@@ -42,10 +41,9 @@ public class BeerController {
     }
 
     @GetMapping("/{beerID}/boxprice")
-    public ResponseEntity<BeerResponseDto> getDetails(@PathVariable(value = "beerID") Long beerID, @RequestParam("currency") String currency, @RequestParam("quantity") Integer quantity) {
+    public ResponseEntity<BeerResponseDto> getBoxPrices(@PathVariable(value = "beerID") Long beerID, @RequestParam("currency") String currency, @RequestParam("quantity") Integer quantity) {
         log.info("[BeerController:getDetails]");
         return ResponseEntity.ok().body(beerFacade.getBeerPrices(beerID, currency, quantity));
     }
-
 
 }
